@@ -23,7 +23,7 @@ const ToastButton = ({
   return (
     <button 
       {...props}
-      className={className} 
+      className={`transition-all duration-200 ${className}`} 
       onClick={handleClick}
     >
       {icon && <span className="mr-2">{icon}</span>}

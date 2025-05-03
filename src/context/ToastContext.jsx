@@ -3,12 +3,22 @@ import Toast from "../components/ui/Toast";
 
 const ToastContext = createContext(undefined);
 
+// Maximum number of toasts to show at once
+const MAX_TOASTS = 3;
+
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
   const showToast = useCallback((message, type = "info", duration = 3000) => {
     const id = Math.random().toString(36).substring(2, 9);
-    setToasts((prevToasts) => [...prevToasts, { id, message, type, duration }]);
+    setToasts((prevToasts) => {
+      // If we already have the maximum number of toasts, remove the oldest one
+      const updatedToasts = prevToasts.length >= MAX_TOASTS
+        ? prevToasts.slice(1)
+        : prevToasts;
+      
+      return [...updatedToasts, { id, message, type, duration }];
+    });
     return id;
   }, []);
 
@@ -19,14 +29,14 @@ export const ToastProvider = ({ children }) => {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="toast-container" aria-live="polite">
+      <div className="toast-container fixed top-0 right-0 left-0 z-50 flex flex-col items-center pt-4" aria-live="polite">
         {toasts.map((toast, index) => (
           <div
             key={toast.id}
-            className="toast-wrapper"
+            className="toast-wrapper mb-2"
             style={{
               position: "relative",
-              marginBottom: index > 0 ? "0.5rem" : "0",
+              marginTop: index > 0 ? "0.5rem" : "0",
             }}
           >
             <Toast

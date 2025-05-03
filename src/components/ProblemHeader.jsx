@@ -10,7 +10,7 @@ const ProblemHeader = ({ problem }) => {
       <div className="container mx-auto px-4 py-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="flex items-center space-x-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 font-semibold text-sm">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2cbb5d]/20 text-[#2cbb5d] font-semibold text-sm">
               {problem.id}
             </div>
             <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
